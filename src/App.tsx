@@ -6,10 +6,10 @@ import { UserProvider, useUser } from './context/UserContext';
 import ConvitePage from './pages/ConvitePage';
 import InicioPage from './pages/InicioPage';
 import DashboardPage from './pages/DashboardPage';
-import ConteudosPage from './pages/ConteudosPage';
-import PlanosPage from './pages/PlanosPage';
-import ConsultasPage from './pages/ConsultasPage';
-import MensagensPage from './pages/MensagensPage';
+// import ConteudosPage from './pages/ConteudosPage';
+// import PlanosPage from './pages/PlanosPage';
+// import ConsultasPage from './pages/ConsultasPage';
+// import MensagensPage from './pages/MensagensPage';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useUser();
@@ -31,15 +31,15 @@ function AppRoutes() {
       {/* Public Routes */}
       <Route path="/convite" element={<ConvitePage />} />
       <Route path="/inicio" element={<InicioPage />} />
-      <Route path="/dashboard" element={<DashboardPage/>} />
-      
+      <Route path="/dashboard" element={<DashboardPage />} />
+
       {/* Private Routes */}
-      
-      <Route path="/conteudos" element={<PrivateRoute><ConteudosPage /></PrivateRoute>} />
-      <Route path="/planos" element={<PrivateRoute><PlanosPage /></PrivateRoute>} />
-      <Route path="/consultas" element={<PrivateRoute><ConsultasPage /></PrivateRoute>} />
-      <Route path="/mensagens" element={<PrivateRoute><MensagensPage /></PrivateRoute>} />
-      
+
+      {/* <Route path="/conteudos" element={<PrivateRoute><ConteudosPage /></PrivateRoute>} /> */}
+      {/* <Route path="/planos" element={<PrivateRoute><PlanosPage /></PrivateRoute>} /> */}
+      {/* <Route path="/consultas" element={<PrivateRoute><ConsultasPage /></PrivateRoute>} /> */}
+      {/* <Route path="/mensagens" element={<PrivateRoute><MensagensPage /></PrivateRoute>} /> */}
+
       {/* Default */}
       <Route path="/" element={<Navigate to="/convite" />} />
       <Route path="*" element={<Navigate to="/convite" />} />

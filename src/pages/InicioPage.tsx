@@ -22,7 +22,7 @@ export default function InicioPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-light-bg dark:bg-dark-bg transition-colors duration-300 relative overflow-hidden">
 
-      {/* Background Elements */}
+      {/* elementos de fundo */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-5%] w-96 h-96 bg-neuro-green/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-[-10%] right-[-5%] w-96 h-96 bg-neuro-blue/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -30,14 +30,14 @@ export default function InicioPage() {
 
       <div className="max-w-6xl w-full z-10">
 
-        {/* Header with Logo (Optional, but good for branding) */}
+        {/* cabeçalho com logo */}
         <div className="flex justify-center mb-8 md:mb-12 animate-fade-in">
           <img src={logo} alt="Neurocom Logo" className="h-12 md:h-16 object-contain drop-shadow-md" />
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
 
-          {/* Video Section */}
+          {/* seção do vídeo introdutório */}
           <div className="order-2 md:order-1 animate-slide-up">
             <div className="aspect-video w-full bg-dark-surface/50 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/20 relative group">
               <div className="absolute inset-0 flex flex-col items-center justify-center text-white/80 transition-all duration-300 group-hover:text-neuro-green">
@@ -51,7 +51,7 @@ export default function InicioPage() {
             </div>
           </div>
 
-          {/* Content Section */}
+          {/* seção de conteúdo explicativo */}
           <div className="order-1 md:order-2 space-y-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
             <div>
               <h1 className="text-3xl md:text-5xl font-bold text-light-text dark:text-white mb-4 tracking-tight">
@@ -98,7 +98,7 @@ export default function InicioPage() {
         </div>
       </div>
 
-      {/* Modal de Cadastro */}
+      {/* modal de cadastro */}
       <Modal isOpen={showModal} onClose={() => setShowModal(false)} title="Criar Conta">
         <form onSubmit={handleRegister} className="space-y-5">
           <Input
