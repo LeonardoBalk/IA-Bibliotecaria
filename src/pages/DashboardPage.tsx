@@ -1,201 +1,117 @@
 import { useState } from 'react';
 import MainLayout from '../components/MainLayout';
 import { useUser } from '../context/UserContext';
-import Card from '../components/ui/Card';
-import Badge from '../components/ui/Badge';
-import Button from '../components/ui/Button';
 import AIChat from '../components/AIChat';
-import SubscriptionWidget from '../components/SubscriptionWidget';
-import UpgradeModal from '../components/UpgradeModal';
-import { UserRole } from '../types';
+import Modal from '../components/ui/Modal';
 
 export default function DashboardPage() {
   const { user } = useUser();
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [showAIChat, setShowAIChat] = useState(false);
 
-  const handleUpgrade = (role: UserRole) => {
-    console.log('Upgrade to:', role);
-    // Implementar integração com payment service
-    setShowUpgradeModal(false);
-  };
-
-  // Mock recommendations
-  const recommendations = [
-    {
-      title: 'Introdução à Autopercepção',
-      type: 'video',
-      level: 'Básico',
-      reason: 'Recomendado para iniciar sua jornada',
-    },
-    {
-      title: 'Exercício: Mapeamento Emocional',
-      type: 'exercise',
-      level: 'Intermediário',
-      reason: 'Próximo passo baseado no seu progresso',
-    },
-    {
-      title: 'Neurociência da Transformação',
-      type: 'article',
-      level: 'Avançado',
-      reason: 'Aprofunde seu conhecimento',
-    },
+  // Mock data - Minimalist
+  const nextSteps = [
+    { title: 'Introdução à Autopercepção', type: 'Vídeo', duration: '10 min' },
+    { title: 'Mapeamento Emocional', type: 'Exercício', duration: '15 min' },
   ];
 
   const recentContent = [
-    { title: 'Fundamentos da Neurocom', progress: 100, type: 'video' },
-    { title: 'Primeiro Exercício', progress: 60, type: 'exercise' },
+    { title: 'Fundamentos da Neurocom', progress: 80 },
   ];
 
   return (
     <MainLayout>
-      <div className="p-8 max-w-7xl mx-auto space-y-8">
-        {/* Header */}
-        <div>
-          <h1 className="text-3xl font-bold text-light-text dark:text-dark-text mb-2">
-            Bem-vindo, {user?.name}
-          </h1>
-          <p className="text-light-text-secondary dark:text-dark-text-secondary">
-            Continue sua jornada de evolução contínua
-          </p>
+      <div className="min-h-full p-8 md:p-12 relative overflow-hidden">
+
+        {/* Background Elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+          <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-neuro-green/5 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-neuro-blue/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Main Column */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* IA Guardiã Recommendations */}
-            <Card className="p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-neuro-green/10 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-neuro-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                </div>
-                <div>
-                  <h2 className="text-lg font-semibold text-light-text dark:text-dark-text">
-                    IA Guardiã da Jornada
-                  </h2>
-                  <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary">
-                    Recomendações personalizadas para você
-                  </p>
-                </div>
-              </div>
+        <div className="max-w-4xl mx-auto space-y-12 relative z-10">
 
-              <div className="space-y-3">
-                {recommendations.map((rec, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-start gap-4 p-4 rounded-neuro bg-light-bg dark:bg-dark-bg hover:shadow-neuro transition-all cursor-pointer"
-                  >
-                    <div className="w-12 h-12 rounded-neuro bg-neuro-blue/10 flex items-center justify-center flex-shrink-0">
-                      {rec.type === 'video' && (
-                        <svg className="w-6 h-6 text-neuro-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        </svg>
-                      )}
-                      {rec.type === 'exercise' && (
-                        <svg className="w-6 h-6 text-neuro-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                        </svg>
-                      )}
-                      {rec.type === 'article' && (
-                        <svg className="w-6 h-6 text-neuro-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-semibold text-light-text dark:text-dark-text">
-                          {rec.title}
-                        </h3>
-                        <Badge variant="primary">{rec.level}</Badge>
-                      </div>
-                      <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary">
-                        {rec.reason}
-                      </p>
-                    </div>
-                    <svg className="w-5 h-5 text-light-text-secondary dark:text-dark-text-secondary flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          {/* Minimalist Header */}
+          <div className="space-y-2 animate-fade-in">
+            <h1 className="text-3xl md:text-4xl font-light text-light-text dark:text-white">
+              Olá, <span className="font-semibold text-neuro-green">{user?.name}</span>
+            </h1>
+            <p className="text-light-text-secondary dark:text-gray-400 font-light text-lg">
+              Sua evolução continua. O que vamos aprender hoje?
+            </p>
+          </div>
+
+          {/* Continue Watching - Clean List */}
+          <div className="space-y-4 animate-slide-up">
+            <h2 className="text-sm font-semibold text-light-text-secondary dark:text-gray-500 uppercase tracking-wider">
+              Continuar de onde parou
+            </h2>
+            <div className="space-y-3">
+              {recentContent.map((item, idx) => (
+                <div key={idx} className="group bg-white/50 dark:bg-white/5 backdrop-blur-sm border border-light-border dark:border-white/10 rounded-xl p-4 hover:border-neuro-green/30 transition-all duration-300 cursor-pointer">
+                  <div className="flex justify-between items-center mb-2">
+                    <h3 className="font-medium text-light-text dark:text-white group-hover:text-neuro-green transition-colors">
+                      {item.title}
+                    </h3>
+                    <span className="text-xs text-neuro-green font-medium">{item.progress}%</span>
+                  </div>
+                  <div className="w-full h-1 bg-light-border dark:bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-neuro-green" style={{ width: `${item.progress}%` }}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Recommendations - Clean List */}
+          <div className="space-y-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <h2 className="text-sm font-semibold text-light-text-secondary dark:text-gray-500 uppercase tracking-wider">
+              Próximos Passos
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4">
+              {nextSteps.map((item, idx) => (
+                <div key={idx} className="group bg-white/50 dark:bg-white/5 backdrop-blur-sm border border-light-border dark:border-white/10 rounded-xl p-5 hover:bg-white/80 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer flex items-center justify-between">
+                  <div>
+                    <span className="text-xs font-medium text-neuro-blue bg-neuro-blue/10 px-2 py-1 rounded-md mb-2 inline-block">
+                      {item.type}
+                    </span>
+                    <h3 className="font-medium text-light-text dark:text-white group-hover:text-neuro-green transition-colors">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-light-surface dark:bg-white/5 flex items-center justify-center text-light-text-secondary dark:text-gray-400 group-hover:text-neuro-green group-hover:bg-neuro-green/10 transition-all">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
-                ))}
-              </div>
-            </Card>
+                </div>
+              ))}
+            </div>
+          </div>
 
-            {/* Recent Content */}
-            <Card className="p-6">
-              <h2 className="text-lg font-semibold text-light-text dark:text-dark-text mb-4">
-                Continuar Assistindo
-              </h2>
-              <div className="space-y-3">
-                {recentContent.map((content, index) => (
-                  <div key={index} className="flex items-center gap-4 p-3 rounded-neuro bg-light-bg dark:bg-dark-bg">
-                    <div className="flex-1">
-                      <h3 className="font-medium text-light-text dark:text-dark-text mb-2">
-                        {content.title}
-                      </h3>
-                      <div className="w-full h-2 bg-light-border dark:bg-dark-border rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-neuro-green transition-all"
-                          style={{ width: `${content.progress}%` }}
-                        />
-                      </div>
-                    </div>
-                    <span className="text-sm text-light-text-secondary dark:text-dark-text-secondary">
-                      {content.progress}%
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </Card>
+        </div>
 
-            {/* IA Conversacional */}
+        {/* Floating AI Button */}
+        <button
+          onClick={() => setShowAIChat(true)}
+          className="fixed bottom-8 right-8 w-14 h-14 bg-neuro-green hover:bg-neuro-green-dark text-white rounded-full shadow-lg shadow-neuro-green/30 flex items-center justify-center transition-all duration-300 hover:scale-110 z-50 group"
+          aria-label="Abrir Assistente IA"
+        >
+          <svg className="w-7 h-7 group-hover:rotate-12 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+          <span className="absolute right-full mr-3 bg-dark-surface text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            IA Guardiã
+          </span>
+        </button>
+
+        {/* AI Chat Modal */}
+        <Modal isOpen={showAIChat} onClose={() => setShowAIChat(false)} title="IA Guardiã">
+          <div className="h-[500px]">
             <AIChat type="conversational" />
           </div>
+        </Modal>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            <SubscriptionWidget 
-              userRole={user?.role || 'free'}
-              onUpgrade={() => setShowUpgradeModal(true)}
-            />
-
-            {/* Quick Actions */}
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold text-light-text dark:text-dark-text mb-4">
-                Acesso Rápido
-              </h3>
-              <div className="space-y-2">
-                <Button variant="secondary" className="w-full justify-start">
-                  <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                  </svg>
-                  Ver Conteúdos
-                </Button>
-                <Button variant="secondary" className="w-full justify-start">
-                  <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  Agendar Consulta
-                </Button>
-                <Button variant="secondary" className="w-full justify-start">
-                  <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  Enviar Mensagem
-                </Button>
-              </div>
-            </Card>
-          </div>
-        </div>
       </div>
-
-      <UpgradeModal
-        isOpen={showUpgradeModal}
-        onClose={() => setShowUpgradeModal(false)}
-        currentRole={user?.role || 'free'}
-        onUpgrade={handleUpgrade}
-      />
     </MainLayout>
   );
 }

@@ -1,59 +1,65 @@
 import { useState } from 'react';
 import Button from '../components/ui/Button';
-import Modal from '../components/ui/Modal';
-import Input from '../components/ui/Input';
-import { useUser } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/neurocom-logo.png';
 
 export default function ConvitePage() {
-  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
-      <div className="max-w-4xl w-full text-center space-y-8">
-        {/* Video Manifesto */}
-        <div className="aspect-video w-full bg-dark-surface rounded-neuro overflow-hidden shadow-neuro-md">
-          <div className="w-full h-full flex items-center justify-center text-dark-text-secondary">
-            <div className="text-center">
-              <svg className="w-16 h-16 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <p className="text-sm">Vídeo Manifesto NEUROCOM</p>
-              <p className="text-xs mt-1 opacity-70">(Integrar com player de vídeo)</p>
-            </div>
-          </div>
-        </div>
+    <div className="min-h-screen flex flex-col items-center justify-between p-6 bg-light-bg dark:bg-dark-bg transition-colors duration-300 relative overflow-hidden">
 
-        {/* Texto Inspirativo */}
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-light-text dark:text-dark-text">
-            Bem-vindo à <span className="text-neuro-blue">NEUROCOM</span>
+      {/* Background Elements for "Modern" feel */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-neuro-green/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-neuro-blue/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+
+      {/* Header Section: Logo + Message */}
+      <div className="w-full max-w-4xl flex flex-col items-center text-center space-y-6 z-10 mt-8 md:mt-12">
+        <img
+          src={logo}
+          alt="Neurocom Logo"
+          className="h-16 md:h-20 object-contain drop-shadow-lg animate-fade-in"
+        />
+
+        <div className="space-y-3 animate-slide-up">
+          <h1 className="text-4xl md:text-6xl font-bold text-light-text dark:text-white tracking-tight">
+            Bem-vindo à Neurocom
           </h1>
-          <p className="text-xl text-light-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto leading-relaxed">
-            Uma jornada de autodesenvolvimento guiada por inteligência artificial, 
-            neurociência aplicada e acompanhamento especializado.
-          </p>
-          <p className="text-light-text-secondary dark:text-dark-text-secondary max-w-xl mx-auto">
-            Evolua em camadas: aproximação → autopercepção → estabilização → expansão → acompanhamento avançado.
-          </p>
-        </div>
-
-        {/* CTA */}
-        <div className="pt-8">
-          <Button 
-            variant="primary" 
-            onClick={() => navigate('/inicio')}
-            className="text-lg px-12 py-4"
-          >
-            Entrar na Jornada
-          </Button>
-          <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-4">
-            Comece gratuitamente • Sem cartão de crédito
+          <p className="text-lg md:text-xl text-light-text-secondary dark:text-gray-300 max-w-2xl mx-auto leading-relaxed font-light">
+            Uma jornada de autodesenvolvimento guiada por inteligência artificial e neurociência aplicada.
           </p>
         </div>
       </div>
+
+      {/* Main Section: Video (Centered) */}
+      <div className="w-full max-w-5xl flex-1 flex items-center justify-center py-8 z-10">
+        <div className="w-full aspect-video bg-dark-surface/50 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/20 relative group">
+          {/* Video Placeholder / Player */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-white/80 transition-all duration-300 group-hover:text-neuro-green">
+            <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-white/20">
+              <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <p className="text-sm font-medium tracking-wider uppercase">Vídeo Manifesto</p>
+          </div>
+          {/* Here you would embed the actual video player, e.g., <video ... /> or <iframe ... /> */}
+        </div>
+      </div>
+
+      {/* Footer Section: CTA Button */}
+      <div className="w-full max-w-md flex flex-col items-center space-y-4 z-10 mb-8 md:mb-12 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+        <Button
+          variant="primary"
+          onClick={() => navigate('/inicio')}
+          className="w-full text-lg py-4 rounded-xl shadow-lg shadow-neuro-green/20 hover:shadow-neuro-green/40 bg-gradient-to-r from-neuro-green to-neuro-green-dark hover:from-neuro-green-light hover:to-neuro-green transition-all duration-300 transform hover:-translate-y-1"
+        >
+          Entrar na Jornada
+        </Button>
+      </div>
+
     </div>
   );
 }

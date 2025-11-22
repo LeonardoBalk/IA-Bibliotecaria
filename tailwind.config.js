@@ -10,19 +10,21 @@ export default {
       colors: {
         neuro: {
           blue: '#1E88E5',
-          green: '#4CAF50',
+          green: '#10B981', // Emerald 500 - More modern/vibrant
+          'green-dark': '#059669', // Emerald 600
+          'green-light': '#34D399', // Emerald 400
           black: '#0C0C0C',
         },
         light: {
-          bg: '#F7F9FB',
+          bg: '#F0FDF4', // Very light green tint
           surface: '#FFFFFF',
           text: '#1A1A1A',
           'text-secondary': '#595959',
           border: '#E5E7EB',
         },
         dark: {
-          bg: '#0C0C0C',
-          surface: '#161616',
+          bg: '#022C22', // Deep green/black
+          surface: 'rgba(22, 22, 22, 0.7)', // Glass effect base
           text: '#E5E5E5',
           'text-secondary': '#9CA3AF',
           border: '#2A2A2A',

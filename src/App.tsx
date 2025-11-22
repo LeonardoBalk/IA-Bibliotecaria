@@ -31,9 +31,10 @@ function AppRoutes() {
       {/* Public Routes */}
       <Route path="/convite" element={<ConvitePage />} />
       <Route path="/inicio" element={<InicioPage />} />
+      <Route path="/dashboard" element={<DashboardPage/>} />
       
       {/* Private Routes */}
-      <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
+      
       <Route path="/conteudos" element={<PrivateRoute><ConteudosPage /></PrivateRoute>} />
       <Route path="/planos" element={<PrivateRoute><PlanosPage /></PrivateRoute>} />
       <Route path="/consultas" element={<PrivateRoute><ConsultasPage /></PrivateRoute>} />
