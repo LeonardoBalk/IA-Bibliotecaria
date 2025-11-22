@@ -259,15 +259,15 @@ neuro-purple: #8b5cf6
 
 ```mermaid
 graph LR
-    A[/convite] --> B[/inicio]
+    A[/convite/] --> B[/inicio/]
     B --> C{Cadastro}
-    C --> D[/dashboard]
+    C --> D[/dashboard/]
     D --> E[Quick Actions]
     E --> F[Conteúdos*]
     E --> G[Consultas*]
     E --> H[Mensagens*]
     E --> I[Planos*]
-    
+
     style F fill:#666,color:#fff
     style G fill:#666,color:#fff
     style H fill:#666,color:#fff
