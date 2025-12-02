@@ -140,6 +140,19 @@ Diário de reflexões do usuário:
    - CTAs de upgrade
    - Destaque do plano atual
 
+### Print das novas páginas
+<img width="1920" height="1232" alt="image" src="https://github.com/user-attachments/assets/0f896a74-8cd5-406d-8be1-a91cfec2be43" />
+<img width="1920" height="1062" alt="image" src="https://github.com/user-attachments/assets/64ab72e6-57c6-4b3a-a6f5-ad09d06e1223" />
+<img width="1920" height="1485" alt="image" src="https://github.com/user-attachments/assets/611fe1e5-a1a0-462e-8ecb-4e0e9db77ecf" />
+<img width="1920" height="1795" alt="image" src="https://github.com/user-attachments/assets/dcbe89f2-d6b7-484a-a21b-4c3ba650621a" />
+
+
+
+
+
+
+
+
 ---
 ## Próximos Passos (Semana 3)
 
