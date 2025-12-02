@@ -1,0 +1,236 @@
+.consultas-page {
+    min-height: 100vh;
+    padding: 2.5rem 2rem 4rem;
+    background: radial-gradient(circle at 70% 30%, var(--surface) 0%, var(--bg) 65%);
+    overflow-y: auto;
+}
+html, body, .consultas-page { scroll-behavior: smooth; }
+
+.consultas-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.header-text h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.header-text p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+/* Container */
+.consultas-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.consultas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.consultations-list { max-height: 520px; overflow-y: auto; scrollbar-width: thin; }
+.consultations-list::-webkit-scrollbar { width: 8px; }
+.consultations-list::-webkit-scrollbar-track { background: var(--bg); }
+.consultations-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.consultation-item { border:1px solid var(--border); border-radius:12px; padding:1rem 1.25rem; background: var(--bg); transition:background .25s,border-color .25s; }
+.consultation-item:hover { background: var(--surface); border-color: var(--border-hover); }
+.status-icon.confirmed { color: var(--brand-secondary); }
+.status-icon.pending { color: #F59E0B; }
+.status-icon.cancelled { color: #EF4444; }
+
+/* Section Card */
+.section-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-icon {
+    color: var(--brand-primary);
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+}
+
+/* Upgrade Notice */
+.upgrade-notice {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-secondary);
+    background-color: var(--bg);
+    border-radius: 12px;
+    border: 1px dashed var(--border);
+}
+
+.upgrade-notice svg {
+    color: #F59E0B;
+    margin-bottom: 1.5rem;
+}
+
+.upgrade-notice h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.upgrade-notice p {
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    font-size: 0.9375rem;
+}
+
+.btn-upgrade-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--brand-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: all 0.2s;
+}
+
+.btn-upgrade-link:hover {
+    background-color: #1976D2;
+    transform: translateY(-1px);
+}
+
+/* Limit Info */
+.limit-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.limit-label {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.limit-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* Booking Form */
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text);
+    font-size: 0.9375rem;
+    font-weight: 500;
+}
+
+.form-group label svg {
+    color: var(--text-secondary);
+    width: 16px;
+    height: 16px;
+}
+
+.form-input,
+.form-textarea {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text);
+    background-color: var(--bg);
+    transition: all 0.2s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+    background-color: var(--surface);
+}
+
+.form-textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+.btn-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background-color: var(--brand-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+}
+
+.btn-submit:hover:not(:disabled) {
+    background-color: #1976D2;
+    transform: translateY(-1px);
+}
+
+.btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .consultas-grid {
+        grid-template-columns: 1fr;
+    }
+}

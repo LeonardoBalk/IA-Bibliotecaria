@@ -1,0 +1,137 @@
+.convite-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(165deg, var(--bg) 0%, var(--surface) 55%, var(--surface-subtle) 100%);
+    overflow-y: auto;
+}
+html, body, .convite-page { scroll-behavior: smooth; }
+
+.convite-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Header */
+.convite-header {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.logo-img {
+    height: 48px;
+    width: auto;
+}
+
+/* Content */
+.convite-content {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+/* Video Section - Clean & Minimal */
+.video-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: var(--black-deep);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    border: 1px solid var(--border);
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: linear-gradient(to bottom right, #1a1a1a, #000000);
+}
+
+.play-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.video-wrapper:hover .play-button {
+    transform: scale(1.1);
+    background: var(--brand-primary);
+    border-color: var(--brand-primary);
+}
+
+.video-placeholder p {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
+
+/* Text Content */
+.text-content {
+    text-align: center;
+    max-width: 600px;
+}
+
+.convite-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+}
+
+.convite-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.btn-start {
+    padding: 1rem 3rem;
+    font-size: 1.125rem;
+    border-radius: 50px;
+    /* Pill shape */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .convite-container {
+        padding: 2rem 1.5rem;
+    }
+
+    .convite-title {
+        font-size: 2rem;
+    }
+
+    .play-button {
+        width: 60px;
+        height: 60px;
+    }
+}
