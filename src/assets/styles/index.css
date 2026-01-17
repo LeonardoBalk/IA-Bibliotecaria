@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* NEUROCOM Design Tokens */
+@layer base {
+  :root {
+    --bg: #FAFAF9;
+    --surface: #FFFFFF;
+    --text: #1C1917;
+    --text-secondary: #78716C;
+    --border: #E7E5E4;
+    --brand-primary: #3ECF8E;
+    --brand-secondary: #38BDF8;
+  }
+
+  .dark {
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
+    --text: #FAFAF9;
+    --text-secondary: #A8A29E;
+    --border: #2a2a2a;
+    --brand-primary: #3ECF8E;
+    --brand-secondary: #38BDF8;
+  }
+
+  * {
+    @apply border-light-border dark:border-dark-border;
+  }
+
+  body {
+    @apply bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text antialiased;
+  }
+}
+
+/* NEUROCOM Components */
+@layer components {
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-2xl px-6 py-2.5 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-neuro-green text-white shadow-soft hover:bg-neuro-green-dark focus:ring-neuro-green;
+  }
+
+  .btn-secondary {
+    @apply btn border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-light-text dark:text-dark-text hover:bg-light-bg dark:hover:bg-dark-surface-hover;
+  }
+
+  .btn-success {
+    @apply btn bg-neuro-green text-white shadow-soft hover:bg-neuro-green-dark focus:ring-neuro-green;
+  }
+
+  /* Cards */
+  .card {
+    @apply rounded-2xl bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border shadow-soft;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-200 hover:shadow-medium hover:-translate-y-0.5;
+  }
+
+  /* Inputs */
+  .input {
+    @apply w-full rounded-2xl border border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg px-4 py-3 text-sm text-light-text dark:text-dark-text placeholder:text-light-text-secondary/50 dark:placeholder:text-dark-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-neuro-green/20 focus:border-neuro-green transition-all duration-200;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply badge bg-neuro-green/10 text-neuro-green;
+  }
+
+  .badge-secondary {
+    @apply badge bg-neuro-blue/10 text-neuro-blue;
+  }
+
+  .badge-neutral {
+    @apply badge bg-light-border dark:bg-dark-border text-light-text-secondary dark:text-dark-text-secondary;
+  }
+}
