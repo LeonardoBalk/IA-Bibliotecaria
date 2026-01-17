@@ -36,7 +36,7 @@ function AppRoutes() {
       <Route path="/chat" element={<ProtectedRoute requiredRole="full"><ChatPage /></ProtectedRoute>} />
 
       {/* Default */}
-      <Route path="/" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} />} />
+      <Route path="/" element={<Navigate to={isAuthenticated ? "/dashboard" : "/convite"} />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

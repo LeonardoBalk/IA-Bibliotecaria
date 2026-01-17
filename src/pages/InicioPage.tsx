@@ -1,173 +1,180 @@
 import { useState } from 'react';
-import Modal from '../components/ui/Modal';
-import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function InicioPage() {
+  const navigate = useNavigate();
+  const { register } = useAuth();
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState('');
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [erro, setErro] = useState('');
   const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
-  const navigate = useNavigate();
+  const [erro, setErro] = useState('');
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErro('');
+    if (!nome || !email || !senha) {
+      setErro('Preencha todos os campos');
+      return;
+    }
+
     setLoading(true);
+    setErro('');
+
     try {
-      await register(name, email, senha);
+      await register(nome, email, senha);
       navigate('/dashboard');
-    } catch (error: any) {
-      setErro(error.message || 'Erro ao criar conta');
+    } catch (err: any) {
+      setErro(err.message || 'Erro ao criar conta');
     } finally {
       setLoading(false);
     }
   };
 
-  const features = [
-    { id: 1, title: "Conteúdos Evolutivos", desc: "Vídeos e exercícios estruturados por níveis de profundidade." },
-    { id: 2, title: "IA Personalizada", desc: "Duas IAs trabalham juntas: uma para conversar, outra para guiar." },
-    { id: 3, title: "Acompanhamento", desc: "Consultorias individuais e mensagens diretas com especialistas." }
-  ];
-
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-light-bg dark:bg-dark-bg relative overflow-hidden transition-colors duration-300">
-      {/* Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-neuro-green/5 dark:bg-white/[0.02] rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-neuro-blue/5 dark:bg-white/[0.02] rounded-full blur-3xl"></div>
-      </div>
+    <div className="min-h-screen bg-dark-bg flex flex-col">
+      {/* Header */}
+      <header className="p-6 flex justify-between items-center">
+        <button
+          onClick={() => navigate('/convite')}
+          className="text-dark-text-secondary hover:text-neuro-green transition-colors text-sm flex items-center gap-2"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Voltar
+        </button>
+        <button
+          onClick={() => navigate('/login')}
+          className="text-dark-text-secondary hover:text-neuro-green transition-colors text-sm"
+        >
+          Já tenho conta
+        </button>
+      </header>
 
-      <div className="max-w-5xl w-full z-10">
-        {/* Logo */}
-        <div className="flex justify-center mb-12 animate-fade-in">
-          <div className="flex items-center gap-3">
-            <img
-              src="https://i.imgur.com/X6sfs4c.png"
-              alt="Neurocom"
-              className="w-12 h-12 object-contain"
-            />
-            <span className="text-light-text dark:text-dark-text font-semibold text-2xl">Neurocom</span>
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col items-center justify-center px-6 py-12">
+        {/* Video Section */}
+        <div className="w-full max-w-2xl aspect-video bg-dark-surface rounded-2xl border border-dark-border mb-8 flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-neuro-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-neuro-green" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <p className="text-dark-text-secondary text-sm">Vídeo de Boas-Vindas</p>
+            <p className="text-dark-text-secondary/50 text-xs mt-1">(em breve)</p>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Video */}
-          <div className="animate-slide-up">
-            <div className="aspect-video w-full bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border rounded-3xl overflow-hidden relative group cursor-pointer hover:border-neuro-green/30 transition-all duration-300">
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-light-text-secondary dark:text-dark-text-secondary group-hover:text-neuro-green transition-colors">
-                <div className="w-16 h-16 rounded-full bg-light-bg dark:bg-dark-bg flex items-center justify-center mb-3 group-hover:scale-105 transition-transform border border-light-border dark:border-dark-border">
-                  <svg className="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                <p className="text-xs font-medium tracking-wider uppercase">Vídeo Introdutório</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="space-y-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            <div>
-              <h1 className="text-3xl md:text-4xl font-semibold text-light-text dark:text-dark-text mb-4 tracking-tight">
-                Metodologia Neurocom
-              </h1>
-              <p className="text-light-text-secondary dark:text-dark-text-secondary leading-relaxed">
-                Uma plataforma que combina conteúdos profundos, inteligência artificial personalizada
-                e acompanhamento especializado para guiar sua evolução.
-              </p>
-            </div>
-
-            <div className="space-y-5">
-              {features.map((item) => (
-                <div key={item.id} className="flex items-start gap-4 group">
-                  <div className="w-10 h-10 rounded-2xl bg-neuro-green/10 dark:bg-dark-surface flex items-center justify-center flex-shrink-0 group-hover:bg-neuro-green/20 dark:group-hover:bg-dark-surface-hover transition-colors border border-neuro-green/20 dark:border-dark-border">
-                    <span className="text-neuro-green font-semibold">{item.id}</span>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-light-text dark:text-dark-text mb-1 group-hover:text-neuro-green transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button
-              onClick={() => setShowModal(true)}
-              className="w-full md:w-auto px-10 py-4 bg-neuro-green hover:bg-neuro-green-dark text-white font-semibold rounded-2xl shadow-soft hover:shadow-glow transition-all duration-200"
-            >
-              Começar Agora
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Modal de Cadastro */}
-      <Modal isOpen={showModal} onClose={() => setShowModal(false)} title="Criar Conta">
-        <form onSubmit={handleRegister} className="space-y-5">
-          {erro && (
-            <div className="bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 px-4 py-3 rounded-2xl text-sm text-center">
-              {erro}
-            </div>
-          )}
-
-          <div>
-            <label className="block text-light-text-secondary dark:text-dark-text-secondary text-sm mb-2 font-medium">Nome completo</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-3.5 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-2xl text-light-text dark:text-dark-text placeholder-light-text-secondary/50 dark:placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green focus:ring-2 focus:ring-neuro-green/20 transition-all text-sm"
-              placeholder="Seu nome"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-light-text-secondary dark:text-dark-text-secondary text-sm mb-2 font-medium">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3.5 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-2xl text-light-text dark:text-dark-text placeholder-light-text-secondary/50 dark:placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green focus:ring-2 focus:ring-neuro-green/20 transition-all text-sm"
-              placeholder="seu@email.com"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-light-text-secondary dark:text-dark-text-secondary text-sm mb-2 font-medium">Senha</label>
-            <input
-              type="password"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              className="w-full px-4 py-3.5 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-2xl text-light-text dark:text-dark-text placeholder-light-text-secondary/50 dark:placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green focus:ring-2 focus:ring-neuro-green/20 transition-all text-sm"
-              placeholder="Mínimo 6 caracteres"
-              required
-              minLength={6}
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-4 bg-neuro-green hover:bg-neuro-green-dark text-white font-semibold rounded-2xl transition-all duration-200 disabled:opacity-50"
-          >
-            {loading ? 'Criando conta...' : 'Criar Conta Gratuita'}
-          </button>
-
-          <p className="text-light-text-secondary/60 dark:text-dark-text-secondary/60 text-xs text-center">
-            Ao criar sua conta, você concorda com nossos termos de uso.
+        {/* CTA */}
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold text-dark-text mb-4">
+            Pronto para começar sua jornada?
+          </h2>
+          <p className="text-dark-text-secondary mb-8 max-w-md">
+            Entre para a comunidade Neurocom e inicie seu processo de transformação pessoal.
           </p>
-        </form>
-      </Modal>
+          <button
+            onClick={() => setShowModal(true)}
+            className="px-8 py-4 bg-neuro-green hover:bg-neuro-green-dark text-white font-medium rounded-xl transition-all text-lg"
+          >
+            Viver a Imersão
+          </button>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="p-6 flex items-center justify-center gap-4">
+        <img
+          src="https://i.imgur.com/X6sfs4c.png"
+          alt="Neurocom"
+          className="w-8 h-8 object-contain"
+        />
+        <p className="text-dark-text-secondary/60 text-sm">
+          Método Dr. Sérgio Spritzer
+        </p>
+      </footer>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-dark-surface border border-dark-border rounded-2xl w-full max-w-md p-6 relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-dark-text-secondary hover:text-dark-text transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Modal Content */}
+            <h2 className="text-2xl font-semibold text-dark-text mb-2 text-center">
+              Crie sua conta
+            </h2>
+            <p className="text-dark-text-secondary text-sm mb-6 text-center">
+              Comece sua jornada de evolução
+            </p>
+
+            {erro && (
+              <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl mb-4 text-sm">
+                {erro}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-dark-text-secondary text-sm mb-2">Nome</label>
+                <input
+                  type="text"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  className="w-full px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-dark-text placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green/50 transition-colors text-sm"
+                  placeholder="Seu nome"
+                />
+              </div>
+
+              <div>
+                <label className="block text-dark-text-secondary text-sm mb-2">Email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-dark-text placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green/50 transition-colors text-sm"
+                  placeholder="seu@email.com"
+                />
+              </div>
+
+              <div>
+                <label className="block text-dark-text-secondary text-sm mb-2">Senha</label>
+                <input
+                  type="password"
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+                  className="w-full px-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-dark-text placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green/50 transition-colors text-sm"
+                  placeholder="••••••••"
+                  minLength={6}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3.5 bg-neuro-green hover:bg-neuro-green-dark text-white font-medium rounded-xl transition-all disabled:opacity-50 mt-4"
+              >
+                {loading ? 'Criando...' : 'Entrar na Comunidade'}
+              </button>
+            </form>
+
+            <p className="text-center text-dark-text-secondary/60 text-xs mt-6">
+              Ao criar sua conta, você concorda com nossos termos de uso.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
