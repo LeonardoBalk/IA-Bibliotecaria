@@ -33,7 +33,7 @@ function AppRoutes() {
       <Route path="/planos" element={<ProtectedRoute><PlanosPage /></ProtectedRoute>} />
       <Route path="/consultas" element={<ProtectedRoute requiredRole="intermediate"><ConsultasPage /></ProtectedRoute>} />
       <Route path="/mensagens" element={<ProtectedRoute requiredRole="intermediate"><MensagensPage /></ProtectedRoute>} />
-      <Route path="/chat" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
+      <Route path="/chat" element={<ProtectedRoute requiredRole="full"><ChatPage /></ProtectedRoute>} />
 
       {/* Default */}
       <Route path="/" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} />} />

@@ -70,7 +70,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             />
             <div>
               <span className="text-light-text dark:text-dark-text font-semibold text-lg">Neurocom</span>
-              <p className="text-xs text-light-text-secondary dark:text-dark-text-secondary">Evolução Contínua</p>
+              <p className="text-xs text-light-text-secondary dark:text-dark-text-secondary">Dr. Sérgio Spritzer</p>
             </div>
           </div>
         </div>

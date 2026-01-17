@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import sergioImg from '../assets/sergio.png';
 
 declare global {
   interface Window {
@@ -81,71 +82,98 @@ export default function LoginPage() {
   }, [isLogin]);
 
   return (
-    <div className="min-h-screen bg-light-bg dark:bg-dark-bg flex items-center justify-center p-6 relative overflow-hidden transition-colors duration-300">
-      {/* Background Decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-neuro-green/10 dark:bg-white/[0.02] rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-neuro-blue/10 dark:bg-white/[0.02] rounded-full blur-3xl"></div>
+    <div className="min-h-screen bg-dark-bg flex transition-colors duration-300">
+      {/* Left Side - Photo (Fixed position) */}
+      <div className="hidden lg:block fixed left-0 top-0 bottom-0 w-[45%]">
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-dark-bg z-10" />
+
+        {/* Subtle glow behind photo */}
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-80 h-80 bg-neuro-green/15 rounded-full blur-3xl" />
+
+        {/* Dr. Sérgio Photo - fixed position */}
+        <img
+          src={sergioImg}
+          alt="Dr. Sérgio Spritzer"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-auto h-[85vh] object-contain opacity-90 z-[5]"
+        />
+
+        {/* Subtle accent glow */}
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-64 h-32 bg-neuro-green/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="w-full max-w-md relative z-10 animate-fade-in">
-        {/* Logo & Welcome */}
-        <div className="text-center mb-10">
-          <img
-            src="https://i.imgur.com/X6sfs4c.png"
-            alt="Neurocom"
-            className="w-16 h-16 mx-auto mb-5 object-contain"
-          />
-          <h1 className="text-2xl font-semibold text-light-text dark:text-dark-text mb-2">
-            {isLogin ? 'Bem-vindo de volta' : 'Comece sua jornada'}
-          </h1>
-          <p className="text-light-text-secondary dark:text-dark-text-secondary">
-            {isLogin ? 'Continue sua evolução pessoal' : 'Um passo de cada vez, em direção à sua melhor versão'}
-          </p>
-        </div>
+      {/* Spacer for fixed left side */}
+      <div className="hidden lg:block w-[45%] flex-shrink-0" />
 
-        {/* Login Card */}
-        <div className="bg-light-surface dark:bg-dark-surface rounded-3xl p-8 shadow-medium border border-light-border dark:border-dark-border animate-slide-up">
+      {/* Right Side - Form */}
+      <div className="flex-1 flex items-center justify-center p-8 lg:p-16">
+        <div className="w-full max-w-sm">
+          {/* Logo */}
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-2">
+              <img
+                src="https://i.imgur.com/X6sfs4c.png"
+                alt="Neurocom"
+                className="w-10 h-10 object-contain"
+              />
+              <span className="text-dark-text font-semibold text-lg tracking-tight">Neurocom</span>
+            </div>
+            <p className="text-dark-text-secondary text-sm">
+              Dr. Sérgio Spritzer
+            </p>
+          </div>
 
+          {/* Heading */}
+          <div className="mb-8">
+            <h1 className="text-2xl font-semibold text-dark-text mb-2">
+              {isLogin ? 'Entrar' : 'Criar conta'}
+            </h1>
+            <p className="text-dark-text-secondary text-sm">
+              {isLogin ? 'Acesse sua jornada de evolução' : 'Comece sua transformação pessoal'}
+            </p>
+          </div>
+
+          {/* Error */}
           {erro && (
-            <div className="bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 px-4 py-3 rounded-2xl mb-6 text-sm text-center">
+            <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl mb-6 text-sm">
               {erro}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (
               <div>
-                <label className="block text-light-text-secondary dark:text-dark-text-secondary text-sm mb-2 font-medium">Como podemos te chamar?</label>
+                <label className="block text-dark-text-secondary text-sm mb-2">Nome</label>
                 <input
                   type="text"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
-                  className="w-full px-4 py-3.5 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-2xl text-light-text dark:text-dark-text placeholder-light-text-secondary/50 dark:placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green focus:ring-2 focus:ring-neuro-green/20 transition-all text-sm"
+                  className="w-full px-4 py-3 bg-dark-surface border border-dark-border rounded-xl text-dark-text placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green/50 transition-colors text-sm"
                   placeholder="Seu nome"
                 />
               </div>
             )}
 
             <div>
-              <label className="block text-light-text-secondary dark:text-dark-text-secondary text-sm mb-2 font-medium">Email</label>
+              <label className="block text-dark-text-secondary text-sm mb-2">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3.5 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-2xl text-light-text dark:text-dark-text placeholder-light-text-secondary/50 dark:placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green focus:ring-2 focus:ring-neuro-green/20 transition-all text-sm"
+                className="w-full px-4 py-3 bg-dark-surface border border-dark-border rounded-xl text-dark-text placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green/50 transition-colors text-sm"
                 placeholder="seu@email.com"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-light-text-secondary dark:text-dark-text-secondary text-sm mb-2 font-medium">Senha</label>
+              <label className="block text-dark-text-secondary text-sm mb-2">Senha</label>
               <input
                 type="password"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                className="w-full px-4 py-3.5 bg-light-bg dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-2xl text-light-text dark:text-dark-text placeholder-light-text-secondary/50 dark:placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green focus:ring-2 focus:ring-neuro-green/20 transition-all text-sm"
+                className="w-full px-4 py-3 bg-dark-surface border border-dark-border rounded-xl text-dark-text placeholder-dark-text-secondary/50 focus:outline-none focus:border-neuro-green/50 transition-colors text-sm"
                 placeholder="••••••••"
                 required
                 minLength={6}
@@ -155,62 +183,46 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-neuro-green hover:bg-neuro-green-dark text-white font-semibold rounded-2xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-soft hover:shadow-glow"
+              className="w-full py-3.5 bg-neuro-green hover:bg-neuro-green-dark text-white font-medium rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-6"
             >
-              {loading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                  Um momento...
-                </span>
-              ) : (
-                isLogin ? 'Entrar' : 'Começar minha jornada'
-              )}
+              {loading ? 'Aguarde...' : (isLogin ? 'Continuar' : 'Criar conta')}
             </button>
           </form>
 
           {/* Divider */}
           <div className="flex items-center my-6">
-            <div className="flex-1 border-t border-light-border dark:border-dark-border"></div>
-            <span className="px-4 text-light-text-secondary dark:text-dark-text-secondary text-xs">ou continue com</span>
-            <div className="flex-1 border-t border-light-border dark:border-dark-border"></div>
+            <div className="flex-1 border-t border-dark-border"></div>
+            <span className="px-4 text-dark-text-secondary text-xs">ou</span>
+            <div className="flex-1 border-t border-dark-border"></div>
           </div>
 
-          {/* Google Sign In */}
+          {/* Google */}
           <div ref={googleBtnRef} className="flex justify-center"></div>
 
           {/* Toggle */}
-          <p className="text-center text-light-text-secondary dark:text-dark-text-secondary mt-6 text-sm">
+          <p className="text-center text-dark-text-secondary mt-8 text-sm">
             {isLogin ? (
               <>
-                Novo por aqui?{' '}
-                <button
-                  onClick={() => setIsLogin(false)}
-                  className="text-neuro-green hover:underline font-semibold"
-                >
-                  Criar conta
+                Não tem conta?{' '}
+                <button onClick={() => setIsLogin(false)} className="text-neuro-green hover:underline">
+                  Criar agora
                 </button>
               </>
             ) : (
               <>
-                Já tem uma conta?{' '}
-                <button
-                  onClick={() => setIsLogin(true)}
-                  className="text-neuro-green hover:underline font-semibold"
-                >
+                Já tem conta?{' '}
+                <button onClick={() => setIsLogin(true)} className="text-neuro-green hover:underline">
                   Entrar
                 </button>
               </>
             )}
           </p>
-        </div>
 
-        {/* Footer */}
-        <p className="text-center text-light-text-secondary/60 dark:text-dark-text-secondary/60 text-xs mt-8">
-          Método Dr. Sérgio Spritzer
-        </p>
+          {/* Footer */}
+          <p className="text-center text-dark-text-secondary/40 text-xs mt-12">
+            Método Dr. Sérgio Spritzer
+          </p>
+        </div>
       </div>
     </div>
   );
